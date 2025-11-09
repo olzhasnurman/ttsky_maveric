@@ -32,7 +32,7 @@ module tt_um_79054_soc_maveric (
   assign reset = ~rst_n;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, 1'b0, ui_in[7:1], uio_in, uart_rx, uio_out, uio_oe, uo_out[7:1]};
+  wire _unused = &{ena, 1'b0, ui_in[7:1], uio_in, uart_rx};
 
 
 
