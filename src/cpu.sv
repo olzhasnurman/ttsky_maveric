@@ -9,7 +9,7 @@ module cpu
 #(
     parameter ADDR_WIDTH  = 32,
     parameter DATA_WIDTH  = 32,
-    parameter BLOCK_WIDTH = 512
+    parameter BLOCK_WIDTH = 256
 )
 // Port declerations.
 (
@@ -117,8 +117,8 @@ module cpu
         .AXI_DATA_WIDTH (DATA_WIDTH ),
         .AXI_ADDR_WIDTH (ADDR_WIDTH ),
         .BLOCK_WIDTH    (BLOCK_WIDTH),
-        .COUNT_LIMIT    ( 4'b1111   ),
-        .COUNT_TO       ( 16        ),
+        .COUNT_LIMIT    ( 3'b111    ),
+        .COUNT_TO       ( 8         ),
         .ADDR_INCR_VAL  ( 32'd4     )
     ) DATA_T_APB (
         .clk                (clk                      ),

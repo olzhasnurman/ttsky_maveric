@@ -8,7 +8,7 @@ module instr_cache
 #(
     parameter BLOCK_COUNT   = 4,
               WORD_SIZE     = 32,
-              BLOCK_WIDTH   = 512,
+              BLOCK_WIDTH   = 256,
               ADDR_WIDTH    = 32
 )
 (
@@ -107,22 +107,22 @@ module instr_cache
 
     always_comb begin
         case ( s_word_offset )
-            4'b0000: o_instr = instr_mem[ s_index ][ 31 :0   ];
-            4'b0001: o_instr = instr_mem[ s_index ][ 63 :32  ];
-            4'b0010: o_instr = instr_mem[ s_index ][ 95 :64  ];
-            4'b0011: o_instr = instr_mem[ s_index ][ 127:96  ];
-            4'b0100: o_instr = instr_mem[ s_index ][ 159:128 ];
-            4'b0101: o_instr = instr_mem[ s_index ][ 191:160 ];
-            4'b0110: o_instr = instr_mem[ s_index ][ 223:192 ];
-            4'b0111: o_instr = instr_mem[ s_index ][ 255:224 ];
-            4'b1000: o_instr = instr_mem[ s_index ][ 287:256 ];
-            4'b1001: o_instr = instr_mem[ s_index ][ 319:288 ];
-            4'b1010: o_instr = instr_mem[ s_index ][ 351:320 ];
-            4'b1011: o_instr = instr_mem[ s_index ][ 383:352 ];
-            4'b1100: o_instr = instr_mem[ s_index ][ 415:384 ];
-            4'b1101: o_instr = instr_mem[ s_index ][ 447:416 ];
-            4'b1110: o_instr = instr_mem[ s_index ][ 479:448 ];
-            4'b1111: o_instr = instr_mem[ s_index ][ 511:480 ];
+            3'b000: o_instr = instr_mem[ s_index ][ 31 :0   ];
+            3'b001: o_instr = instr_mem[ s_index ][ 63 :32  ];
+            3'b010: o_instr = instr_mem[ s_index ][ 95 :64  ];
+            3'b011: o_instr = instr_mem[ s_index ][ 127:96  ];
+            3'b100: o_instr = instr_mem[ s_index ][ 159:128 ];
+            3'b101: o_instr = instr_mem[ s_index ][ 191:160 ];
+            3'b110: o_instr = instr_mem[ s_index ][ 223:192 ];
+            3'b111: o_instr = instr_mem[ s_index ][ 255:224 ];
+            // 4'b1000: o_instr = instr_mem[ s_index ][ 287:256 ];
+            // 4'b1001: o_instr = instr_mem[ s_index ][ 319:288 ];
+            // 4'b1010: o_instr = instr_mem[ s_index ][ 351:320 ];
+            // 4'b1011: o_instr = instr_mem[ s_index ][ 383:352 ];
+            // 4'b1100: o_instr = instr_mem[ s_index ][ 415:384 ];
+            // 4'b1101: o_instr = instr_mem[ s_index ][ 447:416 ];
+            // 4'b1110: o_instr = instr_mem[ s_index ][ 479:448 ];
+            // 4'b1111: o_instr = instr_mem[ s_index ][ 511:480 ];
             default: o_instr = '0;
         endcase
     end

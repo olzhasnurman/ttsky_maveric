@@ -9,7 +9,7 @@ module soc
 #(
     parameter ADDR_WIDTH  = 32,
     parameter DATA_WIDTH  = 32,
-    parameter BLOCK_WIDTH = 512
+    parameter BLOCK_WIDTH = 256
 )
 // Port declerations.
 (

@@ -13,7 +13,7 @@ module datapath
               MEM_INSTR_WIDTH  = 32,
               MEM_ADDR_WIDTH   = 32,
               OUT_ADDR_WIDTH   = 32,
-              BLOCK_DATA_WIDTH = 512
+              BLOCK_DATA_WIDTH = 256
 
 
 )

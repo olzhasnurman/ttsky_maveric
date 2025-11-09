@@ -25,7 +25,7 @@ module counter
     always_ff @( posedge clk) begin
         if      ( arst      ) s_count <= '0;
         else if ( ~restartn ) s_count <= '0;
-        else if ( run       ) s_count <= s_count + 4'b1;
+        else if ( run       ) s_count <= s_count + 3'b1;
     end
 
     always_ff @( posedge clk) begin
