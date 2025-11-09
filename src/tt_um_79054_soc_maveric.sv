@@ -20,15 +20,15 @@ module tt_um_79054_soc_maveric (
 
 
   // All output pins must be assigned. If not used, assign to 0.
-  // assign uo_out[0] = uart_tx;
-  assign uo_out[7:0] = 8'b0;
-  // assign uart_rx = ui_in[0];
+  assign uo_out[0] = 1'b1;
+  assign uo_out[7:1] = 7'b0;
+  assign uart_rx = ui_in[0];
 
   assign uio_out = 8'b0;
   assign uio_oe  = 8'b0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, 1'b0, ui_in[7:0], uio_in};
+  wire _unused = &{ena, 1'b0, ui_in[7:1], uio_in, uart_rx};
 
 
   soc SOC_TOP (
