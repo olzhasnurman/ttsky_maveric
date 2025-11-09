@@ -4,26 +4,68 @@ project:
   author:       ""      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
   description:  ""      # One line description of what your project does
-  language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  language:     "SystemVerilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
+  clock_hz:     25       # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+  tiles: "8x2"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
+  top_module:  "tt_soc_maveric"
 
   # List your project's source files here.
   # Source files must be in ./src and you must list each source file separately, one per line.
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
-    - "project.v"
+    - "tt_soc_maveric.sv"
+    - "addr_increment.sv"
+    - "alu_decoder.sv"
+    - "alu.sv"
+    - "cache_data_transfer.sv"
+    - "clint_mmio.sv"
+    - "control_unit.sv"
+    - "counter.sv"
+    - "cpu.sv"
+    - "csr_file.sv"
+    - "data_cache_fsm.sv"
+    - "data_cache.sv"
+    - "datapath.sv"
+    - "extend_imm.sv"
+    - "fifo.sv"
+    - "instr_cache_fsm.sv"
+    - "instr_cache.sv"
+    - "instr_decoder.sv"
+    - "load_mux.sv"
+    - "main_fsm.sv"
+    - "mem_sim.sv"
+    - "mux4to1.sv"
+    - "mux8to1.sv"
+    - "raminfr.v"
+    - "register_en.sv"
+    - "register_file.sv"
+    - "register_pc.sv"
+    - "register.sv"
+    - "reset_sync.sv"
+    - "soc.sv"
+    - "uart_defines.v"
+    - "uart_receiver.v"
+    - "uart_regs.v"
+    - "uart_rfifo.v"
+    - "uart_sync_flops.v"
+    - "uart_tfifo.v"
+    - "uart_top.v"
+    - "uart_transmitter.v"
+    - "uart_wb.v"
+    - "wb_interconnect.sv"
+    - "wb_master.sv"
+    - "wb_slave.sv"
+
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: ""
+  ui[0]: "uart_rx"
   ui[1]: ""
   ui[2]: ""
   ui[3]: ""
@@ -33,7 +75,7 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
+  uo[0]: "uart_tx"
   uo[1]: ""
   uo[2]: ""
   uo[3]: ""
