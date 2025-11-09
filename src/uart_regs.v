@@ -506,7 +506,7 @@ begin
         if (wb_we_i) // Check for a write operation
         begin
             // Logic from the first block (IER / DL2)
-            if (wb_addr_i == `UART_REG_IE`)
+            if (wb_addr_i == `UART_REG_IE)
             begin
                 if (dlab)
                     dl[`UART_DL2] <= wb_dat_i;
@@ -514,7 +514,7 @@ begin
                     ier <= wb_dat_i[3:0];
             end
             // Logic from the second block (TR / DL1)
-            else if (wb_addr_i == `UART_REG_TR`)
+            else if (wb_addr_i == `UART_REG_TR)
             begin
                 if (dlab)
                 begin
