@@ -14,10 +14,10 @@ module soc
 // Port declerations.
 (
     input  logic        clock,
-    input  logic        reset,
-    input  logic        uart_rx,
+    input  logic        reset
+    // input  logic        uart_rx,
 
-    output logic        uart_tx
+    // output logic        uart_tx
 );
 
     //--------------------------------
@@ -66,14 +66,14 @@ module soc
     logic                      S0_CYC_I;
 
     // WB Slave 1 interface: UART.
-    logic [DATA_WIDTH   - 1:0] S1_DAT_I;
-    logic [ADDR_WIDTH   - 1:0] S1_ADR_I;
-    logic [DATA_WIDTH   - 1:0] S1_DAT_O;
-    logic                      S1_WE_I;
-    logic [DATA_WIDTH/8 - 1:0] S1_SEL_I;
-    logic                      S1_STB_I;
-    logic                      S1_ACK_O;
-    logic                      S1_CYC_I;
+    // logic [DATA_WIDTH   - 1:0] S1_DAT_I;
+    // logic [ADDR_WIDTH   - 1:0] S1_ADR_I;
+    // logic [DATA_WIDTH   - 1:0] S1_DAT_O;
+    // logic                      S1_WE_I;
+    // logic [DATA_WIDTH/8 - 1:0] S1_SEL_I;
+    // logic                      S1_STB_I;
+    // logic                      S1_ACK_O;
+    // logic                      S1_CYC_I;
 
 
     //-----------------------------------
@@ -163,15 +163,15 @@ module soc
         .S0_SEL_I  (S0_SEL_I ),
         .S0_STB_I  (S0_STB_I ),
         .S0_ACK_O  (S0_ACK_O ),
-        .S0_CYC_I  (S0_CYC_I ),
-        .S1_DAT_I  (S1_DAT_I ),
-        .S1_ADR_I  (S1_ADR_I ),
-        .S1_DAT_O  (S1_DAT_O ),
-        .S1_WE_I   (S1_WE_I  ),
-        .S1_SEL_I  (S1_SEL_I ),
-        .S1_STB_I  (S1_STB_I ),
-        .S1_ACK_O  (S1_ACK_O ),
-        .S1_CYC_I  (S1_CYC_I )
+        .S0_CYC_I  (S0_CYC_I )
+        // .S1_DAT_I  (S1_DAT_I ),
+        // .S1_ADR_I  (S1_ADR_I ),
+        // .S1_DAT_O  (S1_DAT_O ),
+        // .S1_WE_I   (S1_WE_I  ),
+        // .S1_SEL_I  (S1_SEL_I ),
+        // .S1_STB_I  (S1_STB_I ),
+        // .S1_ACK_O  (S1_ACK_O ),
+        // .S1_CYC_I  (S1_CYC_I )
     );
 
 
@@ -227,22 +227,22 @@ module soc
     //---------------------------
     // UART Instance.
     //---------------------------
-    uart_top #(
-        .WB_ADDR_WIDTH (ADDR_WIDTH),
-        .WB_DATA_WIDTH (DATA_WIDTH)
-    ) UART_TOP0 (
-        .clk     (clock   ),
-        .arst    (arst    ),
-        .S_DAT_I (S1_DAT_I),
-        .S_ADR_I (S1_ADR_I),
-        .S_DAT_O (S1_DAT_O),
-        .S_WE_I  (S1_WE_I ),
-        .S_SEL_I (S1_SEL_I),
-        .S_STB_I (S1_STB_I),
-        .S_ACK_O (S1_ACK_O),
-        .S_CYC_I (S1_CYC_I),
-        .uart_rx (uart_rx ),
-        .uart_tx (uart_tx )
-    );
+    // uart_top #(
+    //     .WB_ADDR_WIDTH (ADDR_WIDTH),
+    //     .WB_DATA_WIDTH (DATA_WIDTH)
+    // ) UART_TOP0 (
+    //     .clk     (clock   ),
+    //     .arst    (arst    ),
+    //     .S_DAT_I (S1_DAT_I),
+    //     .S_ADR_I (S1_ADR_I),
+    //     .S_DAT_O (S1_DAT_O),
+    //     .S_WE_I  (S1_WE_I ),
+    //     .S_SEL_I (S1_SEL_I),
+    //     .S_STB_I (S1_STB_I),
+    //     .S_ACK_O (S1_ACK_O),
+    //     .S_CYC_I (S1_CYC_I),
+    //     .uart_rx (uart_rx ),
+    //     .uart_tx (uart_tx )
+    // );
 
 endmodule

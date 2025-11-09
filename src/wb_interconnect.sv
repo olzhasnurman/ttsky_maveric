@@ -36,17 +36,17 @@ module wb_interconnect
     output logic [DATA_WIDTH/8 - 1:0] S0_SEL_I,
     output logic                      S0_STB_I,
     input  logic                      S0_ACK_O,
-    output logic                      S0_CYC_I,
+    output logic                      S0_CYC_I
 
     // Slave 1 interface: UART.
-    output logic [DATA_WIDTH   - 1:0] S1_DAT_I,
-    output logic [ADDR_WIDTH   - 1:0] S1_ADR_I,
-    input  logic [DATA_WIDTH   - 1:0] S1_DAT_O,
-    output logic                      S1_WE_I,
-    output logic [DATA_WIDTH/8 - 1:0] S1_SEL_I,
-    output logic                      S1_STB_I,
-    input  logic                      S1_ACK_O,
-    output logic                      S1_CYC_I
+    // output logic [DATA_WIDTH   - 1:0] S1_DAT_I,
+    // output logic [ADDR_WIDTH   - 1:0] S1_ADR_I,
+    // input  logic [DATA_WIDTH   - 1:0] S1_DAT_O,
+    // output logic                      S1_WE_I,
+    // output logic [DATA_WIDTH/8 - 1:0] S1_SEL_I,
+    // output logic                      S1_STB_I,
+    // input  logic                      S1_ACK_O,
+    // output logic                      S1_CYC_I
 );
 
     //------------------------
@@ -62,8 +62,8 @@ module wb_interconnect
     // FSM: States.
     typedef enum logic [1:0] {
         IDLE = 2'd0,
-        SLV0 = 2'd1,
-        SLV1 = 2'd2
+        SLV0 = 2'd1
+        // SLV1 = 2'd2
     } state_t;
 
     state_t PS;
@@ -87,18 +87,18 @@ module wb_interconnect
                 if (M_STB_O & M_CYC_O) begin
                     if (memory_access)
                         NS = SLV0;
-                    else
-                        NS = SLV1;
+                    // else
+                    //     NS = SLV1;
                 end
             end
             SLV0: begin
                 if (wb_done_i)
                     NS = IDLE;
             end
-            SLV1: begin
-                if (wb_done_i)
-                    NS = IDLE;
-            end
+            // SLV1: begin
+            //     if (wb_done_i)
+            //         NS = IDLE;
+            // end
             default: NS = PS;
         endcase
     end
@@ -118,12 +118,12 @@ module wb_interconnect
         S0_STB_I = 'd0;
         S0_CYC_I = 'd0;
         // Slave 1: UART.
-        S1_DAT_I = 'd0;
-        S1_ADR_I = 'd0;
-        S1_WE_I  = 'd0;
-        S1_SEL_I = 'd0;
-        S1_STB_I = 'd0;
-        S1_CYC_I = 'd0;
+        // S1_DAT_I = 'd0;
+        // S1_ADR_I = 'd0;
+        // S1_WE_I  = 'd0;
+        // S1_SEL_I = 'd0;
+        // S1_STB_I = 'd0;
+        // S1_CYC_I = 'd0;
 
         case (PS)
             SLV0: begin
@@ -138,18 +138,18 @@ module wb_interconnect
                 S0_STB_I = M_STB_O;
                 S0_CYC_I = M_CYC_O;
             end
-            SLV1: begin
-                // Master: CPU
-                M_DAT_I = S1_DAT_O;
-                M_ACK_I = S1_ACK_O;
-                // Slave 1: UART.
-                S1_DAT_I = M_DAT_O;
-                S1_ADR_I = M_ADR_O;
-                S1_WE_I  = M_WE_O;
-                S1_SEL_I = M_SEL_O;
-                S1_STB_I = M_STB_O;
-                S1_CYC_I = M_CYC_O;
-            end
+            // SLV1: begin
+            //     // Master: CPU
+            //     M_DAT_I = S1_DAT_O;
+            //     M_ACK_I = S1_ACK_O;
+            //     // Slave 1: UART.
+            //     S1_DAT_I = M_DAT_O;
+            //     S1_ADR_I = M_ADR_O;
+            //     S1_WE_I  = M_WE_O;
+            //     S1_SEL_I = M_SEL_O;
+            //     S1_STB_I = M_STB_O;
+            //     S1_CYC_I = M_CYC_O;
+            // end
             default: begin
                 // Default values.
                 // Master: CPU
@@ -163,12 +163,12 @@ module wb_interconnect
                 S0_STB_I = 'd0;
                 S0_CYC_I = 'd0;
                 // Slave 1: UART.
-                S1_DAT_I = 'd0;
-                S1_ADR_I = 'd0;
-                S1_WE_I  = 'd0;
-                S1_SEL_I = 'd0;
-                S1_STB_I = 'd0;
-                S1_CYC_I = 'd0;
+                // S1_DAT_I = 'd0;
+                // S1_ADR_I = 'd0;
+                // S1_WE_I  = 'd0;
+                // S1_SEL_I = 'd0;
+                // S1_STB_I = 'd0;
+                // S1_CYC_I = 'd0;
             end
         endcase
     end
