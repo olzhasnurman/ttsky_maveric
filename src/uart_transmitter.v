@@ -211,7 +211,7 @@ parameter s_send_parity = 3'd3;
 parameter s_send_stop   = 3'd4;
 parameter s_pop_byte    = 3'd5;
 
-always @(posedge clk or posedge wb_rst_i) begin
+always @(posedge clk) begin
   if (wb_rst_i) begin
     tstate      <=  s_idle;
     stx_o_tmp   <=  1'b1;

@@ -195,7 +195,7 @@ raminfr #(fifo_pointer_w,fifo_width,fifo_depth) tfifo
         );
 
 
-always @(posedge clk or posedge wb_rst_i) // synchronous FIFO
+always @(posedge clk) // synchronous FIFO
 begin
     if (wb_rst_i) begin
         top    <=  'b0;
@@ -228,7 +228,7 @@ begin
     end
 end   // always
 
-always @(posedge clk or posedge wb_rst_i) // synchronous FIFO
+always @(posedge clk) // synchronous FIFO
 begin
   if (wb_rst_i)
     overrun   <=  1'b0;

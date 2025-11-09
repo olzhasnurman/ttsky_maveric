@@ -275,7 +275,7 @@ parameter  sr_wait1                     = 4'd9;
 parameter  sr_push                     = 4'd10;
 
 
-always @(posedge clk or posedge wb_rst_i)
+always @(posedge clk)
 begin
   if (wb_rst_i)
   begin
@@ -422,7 +422,7 @@ begin
   end  // if (enable)
 end // always of receiver
 
-always @ (posedge clk or posedge wb_rst_i)
+always @ (posedge clk)
 begin
   if(wb_rst_i)
     rf_push_q <= 0;
@@ -454,7 +454,7 @@ always @(lcr)
 wire [7:0]     brc_value; // value to be set to break counter
 assign         brc_value = toc_value[9:2]; // the same as timeout but 1 insead of 4 character times
 
-always @(posedge clk or posedge wb_rst_i)
+always @(posedge clk)
 begin
     if (wb_rst_i)
         counter_b <=  8'd159;
@@ -470,7 +470,7 @@ end // always of break condition detection
 /// Timeout condition detection
 reg    [9:0]    counter_t;    // counts the timeout condition clocks
 
-always @(posedge clk or posedge wb_rst_i)
+always @(posedge clk)
 begin
     if (wb_rst_i)
         counter_t <=  10'd639; // 10 bits for the default 8N1
