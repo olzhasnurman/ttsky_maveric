@@ -53,7 +53,7 @@ project:
     - "uart_rfifo.v"
     - "uart_sync_flops.v"
     - "uart_tfifo.v"
-    - "uart_top.v"
+    - "uart_top.sv"
     - "uart_transmitter.v"
     - "uart_wb.v"
     - "wb_interconnect.sv"
