@@ -37,7 +37,7 @@ module instr_cache_fsm
     t_state NS;
 
     // FSM: PS Syncronization.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             PS <= IDLE;
         end

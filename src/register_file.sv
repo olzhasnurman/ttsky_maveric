@@ -33,7 +33,7 @@ module register_file
     logic [ DATA_WIDTH - 1:0 ] mem [ REG_DEPTH - 1:0 ];
 
     // Write logic.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             mem[0] <= '0;
             mem[1] <= '0;

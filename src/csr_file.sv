@@ -45,7 +45,7 @@ module csr_file
     logic [ DATA_WIDTH - 1:0 ] csr_read_only [             3:0 ];
 
     // Write logic.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             mem[ 0 ] <= '0; // Mstatus.
             mem[ 1 ] <= '0; // Reserved.
@@ -90,7 +90,7 @@ module csr_file
         end
     end
 
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             csr_read_only [ 0 ] <= '0; // Mhartid.
             csr_read_only [ 1 ] <= 32'h6372_766d; // Mvendorid.

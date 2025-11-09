@@ -26,7 +26,7 @@ module fifo
     output logic [ FIFO_WIDTH     - 1:0 ] o_data_block
 );
 
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if      ( arst ) o_data_block <= '0;
         else if ( ( ~start_write ) & ( ~start_read ) ) o_data_block <= i_data_block;
         else if ( write_en ) o_data_block <= { i_data, o_data_block[ FIFO_WIDTH - 1:AXI_DATA_WIDTH ] };

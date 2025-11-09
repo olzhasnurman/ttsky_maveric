@@ -57,7 +57,7 @@ module wb_master
 
 
     // FSM: Next state logic.
-    always_ff @(posedge clk_i, posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) PS <= IDLE;
         else       PS <= NS;
     end
@@ -87,7 +87,7 @@ module wb_master
     end
 
     // FSM: Output logic.
-    always_ff @(posedge clk_i, posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         ADR_O  <= '0;
         DAT_O  <= '0;
         WE_O   <= '0;

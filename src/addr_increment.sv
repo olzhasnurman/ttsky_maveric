@@ -26,7 +26,7 @@ module addr_increment
 
     logic [ AXI_ADDR_WIDTH - 1:0 ] s_count;
 
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if      ( arst   ) s_count <= '0;
         else if ( ~run   ) s_count <= '0;
         else if ( enable ) s_count <= s_count + INCR_VAL;

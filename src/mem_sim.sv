@@ -45,7 +45,7 @@ module mem_sim
     // Simulating random multiple clock cycle memory access.
     logic [7:0] count_s;
 
-    always_ff @(posedge clk, posedge arst) begin
+    always_ff @(posedge clk) begin
         if (arst  )
             count_s <= '0;
         else if (access_s)
@@ -67,7 +67,7 @@ module mem_sim
     assign lfsr_msb_s = lfsr_s [7] ^ lfsr_s [5] ^ lfsr_s [4] ^ lfsr_s [3];
 
     // Primitive Polynomial: x^8+x^6+x^5+x^4+1
-    always_ff @(posedge clk, posedge arst) begin
+    always_ff @(posedge clk) begin
         if      (arst    ) lfsr_s <= 8'b00010101; // Initial value.
         else if (access_s) lfsr_s <= {lfsr_msb_s, lfsr_s [7:1]};
     end
@@ -77,7 +77,7 @@ module mem_sim
     logic [ DATA_WIDTH - 1:0 ] mem [255:0];
 
 
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         // if ( arst ) begin
         //     $readmemh(`PATH_TO_MEM, mem);
         // end

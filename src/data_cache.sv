@@ -172,7 +172,7 @@ module data_cache
     //-------------------------
 
     // Write data logic.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             data_mem [ 0 ][ 0 ] <= '0;
             data_mem [ 0 ][ 1 ] <= '0;
@@ -199,7 +199,7 @@ module data_cache
     end
 
     // Modify dirty bit.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             // For 2-way set associative cache.
             dirty_mem [ 0 ] <= '0;
@@ -211,7 +211,7 @@ module data_cache
     end
 
     // Write valid bit.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             // For 2-way set associative cache.
             valid_mem [ 0 ] <= '0;
@@ -223,7 +223,7 @@ module data_cache
     end
 
     // Write LRU set.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             lru_set <= '0;
         end
@@ -234,7 +234,7 @@ module data_cache
 
     // Write LRU.
     integer j;
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             lru_mem [ 0 ][ 0 ] <= 1'b0;
             lru_mem [ 1 ][ 0 ] <= 1'b1;
@@ -295,7 +295,7 @@ module data_cache
 
     logic [ 1:0 ] s_count;
 
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if      ( arst      ) s_count <= '0;
         else if ( i_done_wb ) s_count <= s_count + 2'b1;
     end

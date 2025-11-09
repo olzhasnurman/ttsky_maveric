@@ -72,7 +72,7 @@ module instr_cache
     logic [ BLOCK_WIDTH - 1:0 ] instr_mem [ BLOCK_COUNT - 1:0 ];
 
     // Valid write logic.
-    always_ff @( posedge clk, posedge arst) begin
+    always_ff @( posedge clk) begin
         if (arst) begin
             valid_mem <= '0;
         end
@@ -85,7 +85,7 @@ module instr_cache
     end
 
     // Write logic.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             tag_mem [ 0 ] <= '0;
             tag_mem [ 1 ] <= '0;

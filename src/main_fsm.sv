@@ -146,7 +146,7 @@ module main_fsm
     // FSM
     // -----------------------------------
     // FSM: Synchronization.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             PS <= FETCH;
         end

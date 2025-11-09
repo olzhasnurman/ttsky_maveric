@@ -26,7 +26,7 @@ module clint_mmio
 
     logic [ REG_WIDTH - 1:0 ] mem [ 3 :0 ];
 
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) begin
             mem [ 0 ] <= '0; // MSIP.
             mem [ 1 ] <= '0; // MTIME

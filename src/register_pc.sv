@@ -24,7 +24,7 @@ module register_pc
 );
 
     // Write logic.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) o_read_data <= 32'h3000_0000;
         else if ( write_en ) begin
             o_read_data <= i_write_data;

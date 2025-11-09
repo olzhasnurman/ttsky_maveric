@@ -23,7 +23,7 @@ module register
 );
 
     // Write logic.
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) o_read_data <= '0;
         else o_read_data <= i_write_data;
     end

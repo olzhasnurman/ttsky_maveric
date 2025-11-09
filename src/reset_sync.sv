@@ -13,7 +13,7 @@ module reset_sync
 
     logic rst_signal;
 
-    always_ff @( posedge clk, posedge arst ) begin
+    always_ff @( posedge clk) begin
         if ( arst ) { arst_sync, rst_signal } <= 2'b11;
         else        { arst_sync, rst_signal } <= { rst_signal, 1'b0 };
     end

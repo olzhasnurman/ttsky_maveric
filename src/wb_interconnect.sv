@@ -71,7 +71,7 @@ module wb_interconnect
 
 
     // FSM: Next state synchronization.
-    always_ff @(posedge clk_i, posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) PS <= IDLE;
         else       PS <= NS;
     end

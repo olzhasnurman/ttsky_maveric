@@ -60,7 +60,7 @@ module wb_slave
 
 
     // FSM: Next state logic.
-    always_ff @(posedge clk_i, posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) PS <= IDLE;
         else       PS <= NS;
     end
@@ -101,7 +101,7 @@ module wb_slave
     end
 
     // FSM: Output logic.
-    always_ff @(posedge clk_i, posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         DAT_O    <= '0;
         ACK_O    <= '0;
         rd_req_o <= '0;
