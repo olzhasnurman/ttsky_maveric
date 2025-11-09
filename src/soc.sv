@@ -35,14 +35,14 @@ module soc
     logic                    s_wb_done;
 
     // Memory module signals.
-    logic [ADDR_WIDTH - 1:0] s_mem_addr;
-    logic [DATA_WIDTH - 1:0] s_mem_data_in;
-    logic [DATA_WIDTH - 1:0] s_mem_data_out;
-    logic                    s_mem_we;
-    logic                    s_mem_read_request;
-    logic                    s_successful_access;
-    logic                    s_successful_read;
-    logic                    s_successful_write;
+    // logic [ADDR_WIDTH - 1:0] s_mem_addr;
+    // logic [DATA_WIDTH - 1:0] s_mem_data_in;
+    // logic [DATA_WIDTH - 1:0] s_mem_data_out;
+    // logic                    s_mem_we;
+    // logic                    s_mem_read_request;
+    // logic                    s_successful_access;
+    // logic                    s_successful_read;
+    // logic                    s_successful_write;
 
 
     // WB Master interface: CPU.
@@ -56,14 +56,14 @@ module soc
     logic                      M_CYC_O;
 
     // WB Slave 0 interface: Memory.
-    logic [DATA_WIDTH   - 1:0] S0_DAT_I;
-    logic [ADDR_WIDTH   - 1:0] S0_ADR_I;
-    logic [DATA_WIDTH   - 1:0] S0_DAT_O;
-    logic                      S0_WE_I;
-    logic [DATA_WIDTH/8 - 1:0] S0_SEL_I;
-    logic                      S0_STB_I;
-    logic                      S0_ACK_O;
-    logic                      S0_CYC_I;
+    // logic [DATA_WIDTH   - 1:0] S0_DAT_I;
+    // logic [ADDR_WIDTH   - 1:0] S0_ADR_I;
+    // logic [DATA_WIDTH   - 1:0] S0_DAT_O;
+    // logic                      S0_WE_I;
+    // logic [DATA_WIDTH/8 - 1:0] S0_SEL_I;
+    // logic                      S0_STB_I;
+    // logic                      S0_ACK_O;
+    // logic                      S0_CYC_I;
 
     // WB Slave 1 interface: UART.
     logic [DATA_WIDTH   - 1:0] S1_DAT_I;
@@ -156,14 +156,14 @@ module soc
         .M_STB_O   (M_STB_O  ),
         .M_ACK_I   (M_ACK_I  ),
         .M_CYC_O   (M_CYC_O  ),
-        .S0_DAT_I  (S0_DAT_I ),
-        .S0_ADR_I  (S0_ADR_I ),
-        .S0_DAT_O  (S0_DAT_O ),
-        .S0_WE_I   (S0_WE_I  ),
-        .S0_SEL_I  (S0_SEL_I ),
-        .S0_STB_I  (S0_STB_I ),
-        .S0_ACK_O  (S0_ACK_O ),
-        .S0_CYC_I  (S0_CYC_I ),
+        // .S0_DAT_I  (S0_DAT_I ),
+        // .S0_ADR_I  (S0_ADR_I ),
+        // .S0_DAT_O  (S0_DAT_O ),
+        // .S0_WE_I   (S0_WE_I  ),
+        // .S0_SEL_I  (S0_SEL_I ),
+        // .S0_STB_I  (S0_STB_I ),
+        // .S0_ACK_O  (S0_ACK_O ),
+        // .S0_CYC_I  (S0_CYC_I ),
         .S1_DAT_I  (S1_DAT_I ),
         .S1_ADR_I  (S1_ADR_I ),
         .S1_DAT_O  (S1_DAT_O ),
@@ -178,50 +178,50 @@ module soc
     //-----------------------------
     // WB Memory Slave Module.
     //-----------------------------
-    wb_slave #(
-        .ADDR_WIDTH  (ADDR_WIDTH ),
-        .DATA_WIDTH  (DATA_WIDTH )
-    ) WB_SLAVE0 (
-        .clk_i               (clock              ),
-        .rst_i               (arst               ),
-        .successful_access_i (s_successful_access),
-        .successful_rd_i     (s_successful_read  ),
-        .successful_wr_i     (s_successful_write ),
-        .data_i              (s_mem_data_out     ),
-        .rd_req_o            (s_mem_read_request ),
-        .wr_en_o             (s_mem_we           ),
-        .addr_o              (s_mem_addr         ),
-        .data_o              (s_mem_data_in      ),
-        .DAT_I               (S0_DAT_I           ),
-        .ADR_I               (S0_ADR_I           ),
-        .DAT_O               (S0_DAT_O           ),
-        .WE_I                (S0_WE_I            ),
-        .SEL_I               (S0_SEL_I           ),
-        .STB_I               (S0_STB_I           ),
-        .ACK_O               (S0_ACK_O           ),
-        .CYC_I               (S0_CYC_I           )
-    );
+    // wb_slave #(
+    //     .ADDR_WIDTH  (ADDR_WIDTH ),
+    //     .DATA_WIDTH  (DATA_WIDTH )
+    // ) WB_SLAVE0 (
+    //     .clk_i               (clock              ),
+    //     .rst_i               (arst               ),
+    //     .successful_access_i (s_successful_access),
+    //     .successful_rd_i     (s_successful_read  ),
+    //     .successful_wr_i     (s_successful_write ),
+    //     .data_i              (s_mem_data_out     ),
+    //     .rd_req_o            (s_mem_read_request ),
+    //     .wr_en_o             (s_mem_we           ),
+    //     .addr_o              (s_mem_addr         ),
+    //     .data_o              (s_mem_data_in      ),
+    //     .DAT_I               (S0_DAT_I           ),
+    //     .ADR_I               (S0_ADR_I           ),
+    //     .DAT_O               (S0_DAT_O           ),
+    //     .WE_I                (S0_WE_I            ),
+    //     .SEL_I               (S0_SEL_I           ),
+    //     .STB_I               (S0_STB_I           ),
+    //     .ACK_O               (S0_ACK_O           ),
+    //     .CYC_I               (S0_CYC_I           )
+    // );
 
 
-    //---------------------------
-    // Memory Unit Instance.
-    //---------------------------
-    mem_sim #(
-        .ADDR_WIDTH (ADDR_WIDTH),
-        .DATA_WIDTH (DATA_WIDTH),
-        .ADDR_W     (8         )
-    ) MEM_M (
-        .clk                 ( clock               ),
-        .arst                ( arst                ),
-        .write_en            ( s_mem_we            ),
-        .i_read_request      ( s_mem_read_request  ),
-        .i_data              ( s_mem_data_in       ),
-        .i_addr              ( s_mem_addr          ),
-        .o_data              ( s_mem_data_out      ),
-        .o_successful_access ( s_successful_access ),
-        .o_successful_read   ( s_successful_read   ),
-        .o_successful_write  ( s_successful_write  )
-    );
+    // //---------------------------
+    // // Memory Unit Instance.
+    // //---------------------------
+    // mem_sim #(
+    //     .ADDR_WIDTH (ADDR_WIDTH),
+    //     .DATA_WIDTH (DATA_WIDTH),
+    //     .ADDR_W     (8         )
+    // ) MEM_M (
+    //     .clk                 ( clock               ),
+    //     .arst                ( arst                ),
+    //     .write_en            ( s_mem_we            ),
+    //     .i_read_request      ( s_mem_read_request  ),
+    //     .i_data              ( s_mem_data_in       ),
+    //     .i_addr              ( s_mem_addr          ),
+    //     .o_data              ( s_mem_data_out      ),
+    //     .o_successful_access ( s_successful_access ),
+    //     .o_successful_read   ( s_successful_read   ),
+    //     .o_successful_write  ( s_successful_write  )
+    // );
 
 
     //---------------------------
