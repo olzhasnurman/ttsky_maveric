@@ -484,21 +484,51 @@ always @(posedge clk or posedge wb_rst_i)
     if (wb_we_i && wb_addr_i==`UART_REG_LC)
         lcr <=  wb_dat_i;
 
-// Interrupt Enable Register or UART_DL2
+
+
+// Combined register block for DL, IER, TF_PUSH, and START_DLC
 always @(posedge clk or posedge wb_rst_i)
+begin
     if (wb_rst_i)
     begin
-        ier <=  4'b0000; // no interrupts after reset
-        dl[`UART_DL2] <=  8'b0;
+        // Reset all signals from both original blocks
+        ier <= 4'b0000;
+        dl <= 16'b0;
+        tf_push <= 1'b0;
+        start_dlc <= 1'b0;
     end
     else
-    if (wb_we_i && wb_addr_i==`UART_REG_IE)
-        if (dlab)
+    begin
+        // Default assignments for signals that act as pulses
+        tf_push <= 1'b0;
+        start_dlc <= 1'b0;
+
+        if (wb_we_i) // Check for a write operation
         begin
-            dl[`UART_DL2] <=  wb_dat_i;
+            // Logic from the first block (IER / DL2)
+            if (wb_addr_i == `UART_REG_IE`)
+            begin
+                if (dlab)
+                    dl[`UART_DL2] <= wb_dat_i;
+                else
+                    ier <= wb_dat_i[3:0];
+            end
+            // Logic from the second block (TR / DL1)
+            else if (wb_addr_i == `UART_REG_TR`)
+            begin
+                if (dlab)
+                begin
+                    dl[`UART_DL1] <= wb_dat_i;
+                    start_dlc <= 1'b1; // enable DL counter
+                end
+                else
+                begin
+                    tf_push <= 1'b1;
+                end
+            end
         end
-        else
-            ier <=  wb_dat_i[3:0]; // ier uses only 4 lsb
+    end
+end
 
 
 // FIFO Control Register and rx_reset, tx_reset signals
@@ -534,32 +564,6 @@ always @(posedge clk or posedge wb_rst_i)
     if (wb_we_i && wb_addr_i==`UART_REG_SR)
         scratch <=  wb_dat_i;
 
-// TX_FIFO or UART_DL1
-always @(posedge clk or posedge wb_rst_i)
-    if (wb_rst_i)
-    begin
-        dl[`UART_DL1]  <=  8'b0;
-        tf_push   <=  1'b0;
-        start_dlc <=  1'b0;
-    end
-    else
-    if (wb_we_i && wb_addr_i==`UART_REG_TR)
-        if (dlab)
-        begin
-            dl[`UART_DL1] <=  wb_dat_i;
-            start_dlc <=  1'b1; // enable DL counter
-            tf_push <=  1'b0;
-        end
-        else
-        begin
-            tf_push   <=  1'b1;
-            start_dlc <=  1'b0;
-        end // else: !if(dlab)
-    else
-    begin
-        start_dlc <=  1'b0;
-        tf_push   <=  1'b0;
-    end // else: !if(dlab)
 
 // Receiver FIFO trigger level selection logic (asynchronous mux)
 always @(fcr)
