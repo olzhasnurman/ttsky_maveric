@@ -15,6 +15,7 @@ module tt_um_79054_soc_maveric (
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
+  /* verilator lint_off UNUSED */
   wire uart_rx;
   wire uart_tx;
 
@@ -26,16 +27,23 @@ module tt_um_79054_soc_maveric (
 
   assign uio_out = 8'b0;
   assign uio_oe  = 8'b0;
+  wire reset;
+  
+  assign reset = ~rst_n;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, 1'b0, ui_in[7:1], uio_in, uart_rx};
+  wire _unused = &{ena, 1'b0, ui_in[7:1], uio_in, uart_rx, uio_out, uio_oe, uo_out[7:1]};
+
 
 
   soc SOC_TOP (
     .clock   (clk),
-    .reset   (~rst_n)
+    .reset   (reset)
     // .uart_rx (uart_rx),
     // .uart_tx (uart_tx)
   );
+  
+  /* verilator lint_on UNUSED */
+
 
 endmodule
