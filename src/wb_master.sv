@@ -88,66 +88,62 @@ module wb_master
 
     // FSM: Output logic.
     always_ff @(posedge clk_i, posedge rst_i) begin
-        if (rst_i) begin
-            ADR_O  <= '0;
-            DAT_O  <= '0;
-            WE_O   <= '0;
-            SEL_O  <= '0;
-            STB_O  <= '0;
-            CYC_O  <= '0;
-            data_o <= '0;
-            done_o <= '0;
-        end
-        else begin
-            case (PS)
-                IDLE: begin
+        ADR_O  <= '0;
+        DAT_O  <= '0;
+        WE_O   <= '0;
+        SEL_O  <= '0;
+        STB_O  <= '0;
+        CYC_O  <= '0;
+        data_o <= '0;
+        done_o <= '0;
+        case (PS)
+            IDLE: begin
+                STB_O  <= 1'b0;
+                CYC_O  <= 1'b0;
+                done_o <= 1'b0;
+                if (~ ACK_I) begin
+                    if (start_rd_i) begin
+                        ADR_O <= addr_i;
+                        WE_O  <= 1'b0; // read.
+                        STB_O <= 1'b1;
+                        CYC_O <= 1'b1;
+                    end
+                    else if (start_wr_i) begin
+                        ADR_O <= addr_i;
+                        DAT_O <= data_i;
+                        WE_O  <= 1'b1; // write.
+                        SEL_O <= sel_i;
+                        STB_O <= 1'b1;
+                        CYC_O <= 1'b1;
+                    end
+                end
+            end
+            RD_DONE: begin
+                if (ACK_I) begin
+                    data_o <= DAT_I;
+                    done_o <= 1'b1;
                     STB_O  <= 1'b0;
                     CYC_O  <= 1'b0;
-                    done_o <= 1'b0;
-                    if (~ ACK_I) begin
-                        if (start_rd_i) begin
-                            ADR_O <= addr_i;
-                            WE_O  <= 1'b0; // read.
-                            STB_O <= 1'b1;
-                            CYC_O <= 1'b1;
-                        end
-                        else if (start_wr_i) begin
-                            ADR_O <= addr_i;
-                            DAT_O <= data_i;
-                            WE_O  <= 1'b1; // write.
-                            SEL_O <= sel_i;
-                            STB_O <= 1'b1;
-                            CYC_O <= 1'b1;
-                        end
-                    end
                 end
-                RD_DONE: begin
-                    if (ACK_I) begin
-                        data_o <= DAT_I;
-                        done_o <= 1'b1;
-                        STB_O  <= 1'b0;
-                        CYC_O  <= 1'b0;
-                    end
+            end
+            WR_DONE: begin
+                if (ACK_I) begin
+                    done_o <= 1'b1;
+                    STB_O  <= 1'b0;
+                    CYC_O  <= 1'b0;
                 end
-                WR_DONE: begin
-                    if (ACK_I) begin
-                        done_o <= 1'b1;
-                        STB_O  <= 1'b0;
-                        CYC_O  <= 1'b0;
-                    end
-                end
-                default: begin
-                    ADR_O  <= ADR_O;
-                    DAT_O  <= DAT_O;
-                    WE_O   <= WE_O;
-                    SEL_O  <= SEL_O;
-                    STB_O  <= STB_O;
-                    CYC_O  <= CYC_O;
-                    data_o <= data_o;
-                    done_o <= done_o;
-                end
-            endcase
-        end
+            end
+            default: begin
+                ADR_O  <= ADR_O;
+                DAT_O  <= DAT_O;
+                WE_O   <= WE_O;
+                SEL_O  <= SEL_O;
+                STB_O  <= STB_O;
+                CYC_O  <= CYC_O;
+                data_o <= data_o;
+                done_o <= done_o;
+            end
+        endcase
     end
 
 

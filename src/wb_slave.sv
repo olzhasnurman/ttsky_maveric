@@ -102,62 +102,58 @@ module wb_slave
 
     // FSM: Output logic.
     always_ff @(posedge clk_i, posedge rst_i) begin
-        if (rst_i) begin
-            DAT_O    <= '0;
-            ACK_O    <= '0;
-            rd_req_o <= '0;
-            wr_en_o  <= '0;
-            addr_o   <= '0;
-            data_o   <= '0;
-        end
-        else begin
-            case (PS)
-                IDLE: begin
-                    if (STB_I & CYC_I) begin
-                        if (WE_I) begin
-                            wr_en_o <= 1'b1;
-                            addr_o  <= ADR_I;
-                            data_o  <= DAT_I;
-                        end
-                        else begin
-                            rd_req_o <= 1'b1;
-                            addr_o   <= ADR_I;
-                        end
+        DAT_O    <= '0;
+        ACK_O    <= '0;
+        rd_req_o <= '0;
+        wr_en_o  <= '0;
+        addr_o   <= '0;
+        data_o   <= '0;
+        case (PS)
+            IDLE: begin
+                if (STB_I & CYC_I) begin
+                    if (WE_I) begin
+                        wr_en_o <= 1'b1;
+                        addr_o  <= ADR_I;
+                        data_o  <= DAT_I;
+                    end
+                    else begin
+                        rd_req_o <= 1'b1;
+                        addr_o   <= ADR_I;
                     end
                 end
-                RD_START: begin
-                    if (successful_access_i & successful_rd_i) begin
-                        DAT_O    <= data_i;
-                        ACK_O    <= 1'b1;
-                        rd_req_o <= 1'b0;
-                    end
+            end
+            RD_START: begin
+                if (successful_access_i & successful_rd_i) begin
+                    DAT_O    <= data_i;
+                    ACK_O    <= 1'b1;
+                    rd_req_o <= 1'b0;
                 end
-                RD_DONE: begin
-                    if (~ (STB_I & CYC_I)) begin
-                        ACK_O <= 1'b0;
-                    end
+            end
+            RD_DONE: begin
+                if (~ (STB_I & CYC_I)) begin
+                    ACK_O <= 1'b0;
                 end
-                WR_START: begin
-                    if (successful_access_i & successful_wr_i) begin
-                        ACK_O   <= 1'b1;
-                        wr_en_o <= 1'b0;
-                    end
+            end
+            WR_START: begin
+                if (successful_access_i & successful_wr_i) begin
+                    ACK_O   <= 1'b1;
+                    wr_en_o <= 1'b0;
                 end
-                WR_DONE: begin
-                    if (~ STB_I) begin
-                        ACK_O <= 1'b0;
-                    end
+            end
+            WR_DONE: begin
+                if (~ STB_I) begin
+                    ACK_O <= 1'b0;
                 end
-                default: begin
-                    DAT_O    <= DAT_O;
-                    ACK_O    <= ACK_O;
-                    rd_req_o <= rd_req_o;
-                    wr_en_o  <= wr_en_o;
-                    addr_o   <= addr_o;
-                    data_o   <= data_o;
-                end
-            endcase
-        end
+            end
+            default: begin
+                DAT_O    <= DAT_O;
+                ACK_O    <= ACK_O;
+                rd_req_o <= rd_req_o;
+                wr_en_o  <= wr_en_o;
+                addr_o   <= addr_o;
+                data_o   <= data_o;
+            end
+        endcase
     end
 
 endmodule
